@@ -28,16 +28,20 @@ modelfit <- train(WAR~.,method = "lm", data = training,trControl = crtl)
 summary(modelfit)
 
 # Let's check our model for fit and predictability
-prediction <- predict(model2,newdata = testing)
+prediction <- predict(modelfit,newdata = testing)
 
 # Check our R-squared values
-cor(testing$WAR,predicted)^2
+cor(testing$WAR,prediction)^2
 
 # Now we should plot our values and see how we did!
-plot(testing$WAR,predicted)
+plot(testing$WAR,prediction)
 # Looks like 4 variables matter most in this list
 # IP, HR, BB, and SO
 # Let's train a new model on these 4 items
 model2 <- train(WAR~ IP + HR + BB + SO, method="lm",data = training)
 summary(model2)
+
+# Let's check our model for fit and predictability
+prediction <- predict(model2,newdata = testing)
+plot(testing$WAR,prediction)
 
